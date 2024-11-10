@@ -31,15 +31,6 @@ jobs:
         run: |
           pip3 install ply setuptools  # Ensure setuptools is installed as mentioned
 
-      - name: Run Pre-Build Commands
-        run: |
-          # Simulate prebuild commands for Linux
-          cd code
-          # Replace 'fxd get-chrome' and other specific Windows commands with Linux equivalents, if any
-          ./tools/build/prebuild.sh  # Assuming a prebuild script exists
-          # Generate necessary bindings
-          ./tools/build/fxd gen -game server
-
       - name: Install Premake5
         run: |
           wget https://github.com/premake/premake-core/releases/download/v5.0.0-beta2/premake-5.0.0-beta2-linux.tar.gz
