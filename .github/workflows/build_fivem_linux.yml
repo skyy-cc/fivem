@@ -5,7 +5,6 @@ on:
   push:
     branches: [ "master" ]
 
-
 jobs:
   build_and_release:
     name: Build and Release (Linux)
@@ -25,7 +24,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential clang dotnet-sdk-6.0 unzip python3 python3-pip \
-                                  libunwind-dev libc6-dev
+                                  libunwind-dev libc6-dev libcurl4-openssl-dev libssl-dev
 
       - name: Install Python Packages
         run: |
@@ -42,10 +41,10 @@ jobs:
           cd code
           premake5 gmake2 --game=server
 
-      - name: Build Project
+      - name: Build Project with Verbose Output
         run: |
           cd code/build/server/linux
-          make
+          make VERBOSE=1  # Enable verbose output to diagnose issues
 
       - name: Archive Build Output
         run: |
