@@ -66,7 +66,6 @@ static InitFunction initFunction([]()
 		{
 			auto sourceIP = request->GetHeader("X-Cfx-Source-Ip", "");
 			auto realIP = request->GetHeader("X-Forwarded-For", "");
-			
 			if (sourceIP.empty() && realIP.empty())
 			{
 				return RunAuthentication(clientPtr, postMap, cb);
