@@ -30,7 +30,7 @@ jobs:
       - name: Generate Build Files with Premake
         run: |
           cd code
-          premake5 gmake2
+          premake5 gmake2 --game=server  # Replace 'server' with the correct game argument if different
 
       - name: Build Project
         run: |
