@@ -3,8 +3,7 @@ name: Build FiveM Linux Server and Release
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "master" ]
 
 jobs:
   build_and_release:
