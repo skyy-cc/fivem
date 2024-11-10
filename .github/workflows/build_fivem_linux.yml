@@ -5,6 +5,7 @@ on:
   push:
     branches: [ "master" ]
 
+
 jobs:
   build_and_release:
     name: Build and Release (Linux)
@@ -17,7 +18,14 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential clang premake4 premake5 dotnet-sdk-6.0 unzip
+          sudo apt-get install -y build-essential clang dotnet-sdk-6.0 unzip
+
+      - name: Install Premake5
+        run: |
+          # Download and install Premake5 manually
+          wget https://github.com/premake/premake-core/releases/download/v5.0.0-beta2/premake-5.0.0-beta2-linux.tar.gz
+          tar -xvf premake-5.0.0-beta2-linux.tar.gz
+          sudo mv premake5 /usr/local/bin
 
       - name: Generate Build Files with Premake
         run: |
