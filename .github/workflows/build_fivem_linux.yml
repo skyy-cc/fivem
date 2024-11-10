@@ -1,0 +1,44 @@
+# File: .github/workflows/build_fivem_linux.yml
+name: Build FiveM Linux Server and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_release:
+    name: Build and Release (Linux)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential clang premake4 premake5 dotnet-sdk-6.0 unzip
+
+      - name: Generate Build Files with Premake
+        run: |
+          cd code
+          premake5 gmake2
+
+      - name: Build Project
+        run: |
+          cd code/build/server/linux
+          make
+
+      - name: Archive Build Output
+        run: |
+          cd code/build/server/linux
+          tar -czf fivem-linux-server.tar.gz *
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: v${{ github.run_number }}
+          name: FiveM Linux Server Release v${{ github.run_number }}
+          files: code/build/server/linux/fivem-linux-server.tar.gz
