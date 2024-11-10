@@ -65,7 +65,7 @@ static InitFunction initFunction([]()
 		virtual void RunAuthentication(const fx::ClientSharedPtr& clientPtr, const fwRefContainer<net::HttpRequest>& request, const std::map<std::string, std::string>& postMap, const std::function<void(boost::optional<std::string>)>& cb) override
 		{
 			auto sourceIP = request->GetHeader("X-Cfx-Source-Ip", "");
-			auto realIP = request->GetHeader("X-Real-Ip", "");
+			auto realIP = request->GetHeader("X-Forwarded-For", "");
 
 			if (sourceIP.empty() && realIP.empty())
 			{
