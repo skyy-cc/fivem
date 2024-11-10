@@ -1,7 +1,9 @@
 name: CI Build all products
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - main
 
 jobs:
   build_all:
